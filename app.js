@@ -16,8 +16,7 @@ app.use(authRouter);
 app.set('view engine', 'ejs');
 
 // database connection -- only start listening after the connection is established
-// const dbURI = 'mongodb+srv://shaun:test1234@cluster0.del96.mongodb.net/node-auth';
-const dbURI = `mongodb+srv://nodejs:GoZdurHYSPphiqhg@yifan.jsb5q.mongodb.net/jwt-auth?retryWrites=true&w=majority`
+const dbURI = `Using a real mongodb URI`;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => app.listen(3000, () => {
     console.log("Listening on http://localhost:3000")
