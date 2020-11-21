@@ -1,5 +1,5 @@
 const express = require('express');
-const {signupGet, signupPost, loginGet, loginPost} = require('../controllers/authController');
+const {signupGet, signupPost, loginGet, loginPost, logoutGet} = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -13,8 +13,6 @@ router.get('/signup', signupGet);
 
 router.post('/signup', signupPost);
 
-router.get('/logout', (request, response) => {
-
-})
+router.get('/logout', logoutGet);
 
 module.exports = router;

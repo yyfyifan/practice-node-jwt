@@ -32,6 +32,20 @@ userSchema.post('save', (doc, next) => {
     next();
 })
 
+// static method to login a user
+userSchema.statics.login = async function(email, password) {
+    const user = await this.findOne({email, email});
+    if (user) {
+        // bcrypt can compare plaintext with hashed text for us
+        if(await bcrypt.compare(password, user.password)) {
+            return user;
+        }
+        throw Error('incorrect password');
+    }
+    // means reject this promise in an async method
+    throw Error('incorrect email');
+}
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

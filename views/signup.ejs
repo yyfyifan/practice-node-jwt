@@ -16,13 +16,32 @@
 <script>
   const form = document.querySelector('form');
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // get values
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email, password);
+    try {
+        const result = await fetch('/signup', {
+            method: 'POST',
+            body: JSON.stringify({email, password}),
+            headers: {'Content-Type': 'application/json'}
+        })
+        // parse the object returned from the server
+        const data = await result.json();
+        // the server now will return {user: uid} if signup succeed
+        // otherwise return {email: xx, password: xxx} with the failure reasons
+        if (!data.user) {
+            document.querySelector('.email.error').innerText = data.email ?? '';
+            document.querySelector('.password.error').innerText = data.password ?? '';
+        } else {
+            location.assign('/');
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
   });
 </script>
